@@ -49,9 +49,6 @@ services:
     ports:
       # Exportamos el puerto 4200
       - 4200:4200
-    depends_on:
-      # Indicamos que primero debe estar arriba la api
-      - api
 
   # Definimos el servicio phpmyadmin => cliente grafico para entrar a la base de datos
   phpmyadmin:
