@@ -3,7 +3,7 @@ Proyecto integrador de ejemplo de una aplicación dockerizada acerca de podcasti
 
 # Install dependencies
 - docker [https://docs.docker.com/install/]
-- docker-compose https://docs.docker.com/compose/install/
+- docker-compose [https://docs.docker.com/compose/install/]
 
 # Build & Run
     docker-compose up
