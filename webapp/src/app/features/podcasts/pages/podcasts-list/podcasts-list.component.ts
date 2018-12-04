@@ -17,7 +17,7 @@ export class PodcastsListComponent implements OnInit {
 
   private offset = 0;
   private limit = 20;
-  private fields = 'id,created,title,album,author,cover,song,likes_amount,likeme';
+  private fields = 'id,created,title,album,author,cover,song,likes_amount,likeme,year,youtube_url';
   private searchQueryChanged: Subject<string> = new Subject<string>();
 
   constructor(

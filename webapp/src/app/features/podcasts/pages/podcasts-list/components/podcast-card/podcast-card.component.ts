@@ -23,6 +23,10 @@ export class PodcastCardComponent implements OnInit {
     this.observeSessionStatusChanges();
   }
 
+  public showYouTube() {
+    window.open(this.podcast.youtube_url, '_blank');
+  }
+
   public doLike() {
     this.like();
     this.podcasts.like(this.podcast).subscribe(

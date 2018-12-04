@@ -4,7 +4,7 @@ from .models import Podcast
 @admin.register(Podcast)
 class PodcastAdmin(admin.ModelAdmin):
     readonly_fields = ('likes_amount',)
-    list_display = ('id', 'title', 'album', 'likes_amount', 'created', 'enabled')
+    list_display = ('id', 'title', 'album', 'year', 'likes_amount', 'created', 'enabled')
     search_fields = ('author', 'title', 'album')
-    list_filter = ('updated',)
+    list_filter = ('updated', 'year')
     date_hierarchy = 'created'

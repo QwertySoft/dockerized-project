@@ -17,7 +17,7 @@ class PodcastSerializer(FlexFieldsModelSerializer):
 
     class Meta:
         model = Podcast
-        fields = ('id', 'title', 'description', 'album', 'author', 'created', 'youtube_url', 'cover', 'song', 'likes_amount', 'likeme')
+        fields = ('id', 'title', 'description', 'album', 'author', 'created', 'youtube_url', 'cover', 'song', 'likes_amount', 'likeme', 'year')
 
     # Method for calculate likeme
     def get_likeme(self, obj):

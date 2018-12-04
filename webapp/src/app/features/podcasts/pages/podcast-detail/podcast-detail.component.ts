@@ -30,7 +30,7 @@ export class PodcastDetailComponent implements OnInit {
   ngOnInit() {
     this.sessionStatus = this.auth.isAuthenticated();
     this.observeSessionStatusChanges();
-    
+
     this.route.params
     .subscribe(
       (params: any) => {
@@ -38,6 +38,10 @@ export class PodcastDetailComponent implements OnInit {
         this.get();
       }
     );
+  }
+
+  public showYouTube() {
+    window.open(this.podcast.youtube_url, '_blank');
   }
 
   public get() {

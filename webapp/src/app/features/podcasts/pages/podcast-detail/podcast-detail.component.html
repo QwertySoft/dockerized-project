@@ -13,7 +13,8 @@
   </div>
   <div class="card-body" style="z-index: 999;">
     <h5 class="card-title">
-      {{ podcast.title }}
+      {{ podcast.title }} ({{ podcast.year }})
+      <a *ngIf="podcast.youtube_url" (click)="showYouTube()" target="_blank" class="action" title="YoutTube"><i class="fab fa-youtube"></i></a>
       <a *ngIf="sessionStatus && podcast.likeme" class="action" title="Unlike" (click)="doUnlike()"><i class="fas fa-thumbs-up"></i></a>
       <a *ngIf="sessionStatus && !podcast.likeme" class="action" title="Like" (click)="doLike()"><i class="far fa-thumbs-up"></i></a>
     </h5>

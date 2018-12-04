@@ -16,8 +16,7 @@ class Podcast(models.Model):
     cover = models.FileField(blank=True, null=True, upload_to='covers/')
     song = models.FileField(blank=False, null=False, upload_to='songs/')
     likes_amount = models.IntegerField(blank=True, null=True, default=0)
-    
-    # year
+    year = models.IntegerField(blank=False, null=False, default=2018)
 
     class Meta:
         verbose_name = _("Podcast")
