@@ -1,0 +1,61 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/podcasts']">Podcasts</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ podcast?.title }}</li>
+  </ol>
+</nav>
+
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="card mb-3" *ngIf="!loading">
+  <img class="card-img-top" [src]="podcast.cover" [alt]="podcast.title">
+  <div class="card-img-overlay">
+    <h5 class="card-title likes-amount"><span class="badge badge-pill badge-secondary">{{ podcast.likes_amount }} likes</span></h5>
+  </div>
+  <div class="card-body" style="z-index: 999;">
+    <h5 class="card-title">
+      {{ podcast.title }}
+      <a *ngIf="sessionStatus && podcast.likeme" class="action" title="Unlike" (click)="doUnlike()"><i class="fas fa-thumbs-up"></i></a>
+      <a *ngIf="sessionStatus && !podcast.likeme" class="action" title="Like" (click)="doLike()"><i class="far fa-thumbs-up"></i></a>
+    </h5>
+    <p class="card-text"><span class="author">{{ podcast.author }}</span> in {{ podcast.album }} album</p>
+    <small class="text-muted">{{ podcast.created | amTimeAgo }}</small>
+
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Description
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              {{ podcast.description }}
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <audio controls>
+      <source [src]="podcast.song" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>
+
+<h3>Comments</h3>
+<app-spinner [text]="'Loading comments'" *ngIf="loadingComments"></app-spinner>
+<div *ngFor="let comment of comments" class="card col-12">
+  <div class="card-body">
+    <h5 class="card-title">{{ comment.username }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ comment.created | amTimeAgo }}</h6>
+    <p class="card-text">{{ comment.text }}</p>
+  </div>
+</div>
+
+<hr>
+
+<app-comment-form [podcast]="podcast" (addComment)="addComment($event)"></app-comment-form>

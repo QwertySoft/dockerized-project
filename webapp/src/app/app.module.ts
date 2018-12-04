@@ -1,24 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { FeaturesModule } from './features/features.module';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { HeaderModule } from './components/header/header.module';
+import { FooterModule } from './components/footer/footer.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
     NotFoundPageComponent
   ],
   imports: [
     BrowserModule,
-    FeaturesModule, // Modulo que segmenta el codigo en modulos de aplicacion
-    AppRoutingModule // Modulo que define las rutas de la app
+    HttpClientModule,
+    HeaderModule,
+    FooterModule,
+    FeaturesModule, // Modulo de features de nuestra aplicacion
+    AppRoutingModule // Modulo de routing
   ],
   providers: [],
   bootstrap: [AppComponent]

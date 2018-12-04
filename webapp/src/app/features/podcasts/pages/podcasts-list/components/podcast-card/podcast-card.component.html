@@ -1,0 +1,24 @@
+<div class="card-deck">
+  <div class="card">
+    <img class="card-img-top" [src]="podcast.cover" alt="podcast.title">
+    <div class="card-img-overlay">
+      <h5 class="card-title likes-amount"><span class="badge badge-pill badge-secondary">{{ podcast.likes_amount }} likes</span></h5>
+    </div>
+    <div class="card-body" style="z-index: 999;">
+      <h5 class="card-title">
+        {{ podcast.title }}
+        <a class="action" [routerLink]="['/podcasts', podcast.id]" title="See more"><i class="fas fa-eye"></i></a>
+        <a *ngIf="sessionStatus && podcast.likeme" class="action" title="Unlike" (click)="doUnlike()"><i class="fas fa-thumbs-up"></i></a>
+        <a *ngIf="sessionStatus && !podcast.likeme" class="action" title="Like" (click)="doLike()"><i class="far fa-thumbs-up"></i></a>
+      </h5>
+      <p class="card-text"><span class="author">{{ podcast.author }}</span> in {{ podcast.album }} album</p>
+      <small class="text-muted">{{ podcast.created | amTimeAgo }}</small>
+    </div>
+    <div class="card-footer">
+      <audio controls>
+        <source [src]="podcast.song" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>
+</div>

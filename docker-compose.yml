@@ -45,7 +45,7 @@ services:
       # Creamos un host volume => mapeamos el codigo fuente
       - ./webapp:/usr/src/app
       # Creamos un anonymous volume para que no se pisen las dependencias NodeJs cuando creamos la imagen
-      - '/usr/src/app/node_modules'
+      - /usr/src/app/node_modules
     ports:
       # Exportamos el puerto 4200
       - 4200:4200

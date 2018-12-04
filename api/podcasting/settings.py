@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -38,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'django_filters'
+    'django_filters',
+    # App para proteger la API mediante un access token
+    'rest_framework.authtoken',
+    # App que expone endpoints para manejar autenticación
+    'rest_auth',
+    'users.apps.UsersConfig',
+    'podcasts.apps.PodcastsConfig'
 ]
 
 MIDDLEWARE = [
@@ -75,13 +80,7 @@ WSGI_APPLICATION = 'podcasting.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
+# Definimos la conexion a la base de datos
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -125,6 +124,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+# MEDIA
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+# Indicamos donde queremos almacenar los uploads
+MEDIA_ROOT = BASE_DIR+'/media'
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -134,5 +140,18 @@ STATIC_URL = '/static/'
 # Django REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.TokenAuthentication',),
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',)
 }
+
+# Le indicamos a Django que vamos a utilizar un modelo de User extendido al que define el
+AUTH_USER_MODEL = 'users.User'
+
+# CORS
+# Agregamos un middleware para habilitar las reglas para el intercambio de contenido en sitios cruzados
+# ------------------------------------------------------------------------------
+# https://github.com/OttoYiu/django-cors-headers
+INSTALLED_APPS += ['corsheaders']  # noqa F405
+MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
+CORS_ORIGIN_ALLOW_ALL = True

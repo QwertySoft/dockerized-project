@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FeatureOneModule } from './feature-one/feature-one.module';
-import { LandingModule } from './landing/landing.module';
+import { PodcastsModule } from './podcasts/podcasts.module';
+import { podcastsRoutes } from './podcasts/podcasts.module';
+
+export const featuresRoutes = [
+  ...podcastsRoutes
+];
 
 @NgModule({
   imports: [
     CommonModule,
-    FeatureOneModule,
-    LandingModule
+    PodcastsModule
   ],
   declarations: []
 })
