@@ -11,10 +11,12 @@ Proyecto integrador de ejemplo de una aplicación dockerizada acerca de podcasti
     docker-compose up
     
 # Traditional Build & Run
-## API
+## API > Require db confiuration
     . <path_to_virtualenv>/bin/activate
     cd api
     pip install -r requirements.txt
+    python manage.py migrate
+    python manage.py createsuperuser
     python manage.py runserver
     
 ## WEBAPP
