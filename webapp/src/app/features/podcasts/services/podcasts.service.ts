@@ -26,8 +26,8 @@ export class PodcastsService {
     let params = new HttpParams();
     params = params.append('search', q);
     params = params.append('fields', fields);
-    params = params.append('offser', offset.toString());
-    params = params.append('limir', limit.toString());
+    params = params.append('offset', offset.toString());
+    params = params.append('limit', limit.toString());
 
     return this.http.get<Podcast[]>(`${this.endpoint}/`, {headers: headers, params: params});
   }
