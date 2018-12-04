@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from .serializers import PodcastSerializer, CommentSerializer, LikeSerializer
 from .models import Podcast, Like, Comment
+from .permissions import IAmMe
 
 # ViewSet for Podcast
 class PodcastViewSet(viewsets.ReadOnlyModelViewSet):
@@ -19,7 +20,7 @@ class PodcastViewSet(viewsets.ReadOnlyModelViewSet):
     # Definimos el uso de un filtro SearchFilter y además OrderingFilter
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     # Definimo un SearchFilter por todos los campos
-    search_fields = ('title', 'album')
+    search_fields = ('title', 'album', 'author')
     # Definimos un orden por defecto
     ordering = ('-created', 'title')
     # Habilitamos para que se pueda ordenar por los campos 'created' y 'title'
@@ -50,8 +51,8 @@ class PodcastViewSet(viewsets.ReadOnlyModelViewSet):
 
             like = Like(user=request.user, podcast=podcast)
             like.save()
-
             likeSerializer = LikeSerializer(like)
+
             return Response(likeSerializer.data, status=201)
         else:
             if like is None:
@@ -60,14 +61,15 @@ class PodcastViewSet(viewsets.ReadOnlyModelViewSet):
             # Decrement likes amounr
             podcast.likes_amount -= 1
             podcast.save()
-
+            
             like.delete()
+
             return Response({}, status=200)
 
 # ViewSet for Comments
 class CommentViewSet(viewsets.ModelViewSet):
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [IAmMe, permissions.IsAuthenticatedOrReadOnly]
     # QuerySet para listar todos los snippets habilitados
     queryset = Comment.objects.all()
     # Definimos que serializador usar

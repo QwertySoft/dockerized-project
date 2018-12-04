@@ -25,11 +25,12 @@ export class PodcastDetailComponent implements OnInit {
     private podcasts: PodcastsService,
     private commentsService: CommentsService,
     private auth: AuthService
-  ) {
-    this.sessionStatus = this.auth.isAuthenticated();
-  }
+  ) {}
 
   ngOnInit() {
+    this.sessionStatus = this.auth.isAuthenticated();
+    this.observeSessionStatusChanges();
+    
     this.route.params
     .subscribe(
       (params: any) => {
@@ -90,6 +91,12 @@ export class PodcastDetailComponent implements OnInit {
   private unlike() {
     this.podcast.likes_amount--;
     this.podcast.likeme = false;
+  }
+
+  private observeSessionStatusChanges() {
+    this.auth.observeSessionStatusChanges().subscribe(
+      (value: boolean) => this.sessionStatus = value
+    );
   }
 
 }
