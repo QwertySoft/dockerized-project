@@ -29,7 +29,7 @@ export class PodcastsService {
     params = params.append('offset', offset.toString());
     params = params.append('limit', limit.toString());
 
-    return this.http.get<Podcast[]>(`${this.endpoint}/`, {headers: headers, params: params});
+    return this.http.get<any>(`${this.endpoint}/`, {headers: headers, params: params});
   }
 
   public get(id: number) {

@@ -43,8 +43,8 @@ export class PodcastsListComponent implements OnInit {
   public filter() {
     this.podcastsService.filter(this.q, this.fields, this.offset, this.limit)
     .subscribe(
-      (podcasts: Podcast[]) => {
-        this.podcasts = podcasts;
+      (data: any) => {
+        this.podcasts = data.results;
         this.loading = false;
       }
     );
