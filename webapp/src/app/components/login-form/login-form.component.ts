@@ -16,9 +16,7 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private auth: AuthService
-  ) {
-    this.observeSessionStatusChanges();
-  }
+  ) {}
 
   ngOnInit() {
     this.sessionStatus = this.auth.isAuthenticated();
@@ -35,6 +33,7 @@ export class LoginFormComponent implements OnInit {
         this.username = this.user.username;
         // Notifica a todos los observadores que la sesion fue iniciada
         this.auth.changeSesionStatus(true);
+        this.sessionStatus = true;
         this.getMe();
       }
     );
@@ -49,13 +48,8 @@ export class LoginFormComponent implements OnInit {
         this.user = new User();
         // Notifica a todos los observadores que la sesion fue cerrada
         this.auth.changeSesionStatus(false);
+        this.sessionStatus = false;
       }
-    );
-  }
-
-  private observeSessionStatusChanges() {
-    this.auth.observeSessionStatusChanges().subscribe(
-      (value: boolean) => this.sessionStatus = value
     );
   }
 

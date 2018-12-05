@@ -15,6 +15,7 @@ export class PodcastsListComponent implements OnInit {
   public q = '';
   public loading = true;
 
+  private thereAreMore = true;
   private offset = 0;
   private limit = 20;
   private fields = 'id,created,title,album,author,cover,song,likes_amount,likeme,year,youtube_url';
@@ -41,16 +42,23 @@ export class PodcastsListComponent implements OnInit {
   }
 
   public filter() {
+    this.loading = true;
     this.podcastsService.filter(this.q, this.fields, this.offset, this.limit)
     .subscribe(
       (data: any) => {
-        this.podcasts = data.results;
+        this.podcasts = this.podcasts.concat(data.results);
+        this.thereAreMore = data.results.length == this.limit;
+        this.offset += this.limit;
         this.loading = false;
       }
     );
   }
 
-  // TODO: infinite scroll
-
+  public onScroll() {
+   if (!this.thereAreMore) {
+    return;
+   }
+   this.filter();
+  }
 
 }
