@@ -2,7 +2,7 @@
 <input style="margin-bottom: 5px" type="text" placeholder="Search..." class="form-control" id="q" [ngModel]="q" (ngModelChange)="search($event)" name="q">
 
 <div class="row">
-  <app-podcast-card class="col-xs-12 col-md-4 col-lg-3" *ngFor="let podcast of podcasts" [podcast]="podcast"></app-podcast-card>
+  <app-podcast-card class="col-xs-12 col-md-3 col-lg-4" *ngFor="let podcast of podcasts" [podcast]="podcast"></app-podcast-card>
 </div>
 
 <app-spinner *ngIf="loading"></app-spinner>
