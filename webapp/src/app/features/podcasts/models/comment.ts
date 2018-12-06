@@ -1,5 +1,3 @@
-import { User } from '../../../models/user';
-
 export class Comment {
     id: number;
     created: Date;

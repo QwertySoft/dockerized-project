@@ -17,7 +17,7 @@ export class PodcastsListComponent implements OnInit {
 
   private thereAreMore = true;
   private offset = 0;
-  private limit = 20;
+  private limit = 1;
   private fields = 'id,created,title,album,author,cover,song,likes_amount,likeme,year,youtube_url';
   private searchQueryChanged: Subject<string> = new Subject<string>();
 
@@ -28,6 +28,7 @@ export class PodcastsListComponent implements OnInit {
     this.searchQueryChanged
     .pipe(debounceTime(1000), distinctUntilChanged())
     .subscribe(() => {
+      this.reset();
       this.filter();
      });
   }
@@ -47,7 +48,7 @@ export class PodcastsListComponent implements OnInit {
     .subscribe(
       (data: any) => {
         this.podcasts = this.podcasts.concat(data.results);
-        this.thereAreMore = data.results.length == this.limit;
+        this.thereAreMore = data.results.length === this.limit;
         this.offset += this.limit;
         this.loading = false;
       }
@@ -59,6 +60,11 @@ export class PodcastsListComponent implements OnInit {
     return;
    }
    this.filter();
+  }
+
+  private reset() {
+    this.podcasts = [];
+    this.offset = 0;
   }
 
 }

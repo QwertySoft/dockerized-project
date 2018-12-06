@@ -14,10 +14,10 @@ export class CommentFormComponent implements OnInit {
 
   @Output() public addComment: EventEmitter<Comment> = new EventEmitter<Comment>();
   @Input() public podcast: Podcast;
-  public user = new User();
   public comment = new Comment();
   public sessionStatus: boolean;
   public addingComment = false;
+  public block = false;
 
   constructor(
     private auth: AuthService,
@@ -28,29 +28,40 @@ export class CommentFormComponent implements OnInit {
 
   ngOnInit() {
     this.sessionStatus = this.auth.isAuthenticated();
-    if (this.sessionStatus) {
-      this.user.username = localStorage.username;
-      this.user.id = localStorage.userId;
-    }
   }
 
   public add() {
+    this.block = true;
+    const user = this.getUser();
     this.addingComment = true;
-    this.comment.user = this.user.id;
+    this.comment.user = user.id;
     this.comment.podcast = this.podcast.id;
     this.comments.create(this.comment).subscribe(
       (comment: Comment) => {
         this.addComment.emit(comment);
         this.comment = new Comment();
         this.addingComment = false;
+        this.block = false;
+      },
+      () => {
+        this.block = false;
       }
     );
   }
 
   private observeSessionStatusChanges() {
     this.auth.observeSessionStatusChanges().subscribe(
-      (value: boolean) => this.sessionStatus = value
+      (value: boolean) => {
+        this.sessionStatus = value;
+      }
     );
+  }
+
+  private getUser() {
+    return {
+      id: (localStorage.userId) ? parseInt(localStorage.userId, 10) : null,
+      username: localStorage.username
+    };
   }
 
 }

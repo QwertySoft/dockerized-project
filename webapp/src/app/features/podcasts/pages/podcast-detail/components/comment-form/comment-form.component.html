@@ -5,7 +5,7 @@
       <textarea type="text" placeholder="Comment" class="form-control" id="comment" required [(ngModel)]="comment.text" name="text" #text="ngModel"></textarea>
 
       <!-- Definimos boton para submitear el formulario -->
-      <button type="submit" class="btn btn-success" [disabled]="!form.form.valid">
+      <button type="submit" class="btn btn-success" [disabled]="!form.form.valid || block">
         Add
         <app-spinner *ngIf="addingComment"></app-spinner>
       </button>
