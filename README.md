@@ -6,9 +6,9 @@ Proyecto integrador de ejemplo de una aplicación dockerizada acerca de podcasti
 - docker-compose [https://docs.docker.com/compose/install/]
 
 # Build & Run with Docker
+    docker-compose build
     docker-compose exec api python manage.py migrate
     docker-compose exec api python manage.py createsuperuser
-    docker-compose build
     docker-compose up
     
 # Traditional Build & Run
