@@ -9,5 +9,6 @@ export class Podcast {
     cover: string;
     song: string;
     likes_amount: number;
+    year: number;
     likeme: boolean;
 }

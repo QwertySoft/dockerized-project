@@ -1,14 +1,16 @@
+<!-- Formulario para iniciar sesion -->
 <form class="form-inline" *ngIf="!sessionStatus" (ngSubmit)="doLogin()" #loginForm="ngForm">
-    <!-- Definimos el input para el username -->
+    <!-- Input para el username -->
     <input type="text" placeholder="Username" class="form-control" id="username" required [(ngModel)]="user.username" name="username" #username="ngModel">
 
-    <!-- Definimos el input para la password -->
+    <!-- Input para la password -->
     <input type="password" placeholder="Password" class="form-control" id="password" required [(ngModel)]="user.password" name="password" #password="ngModel">
 
-    <!-- Definimos boton para submitear el formulario -->
+    <!-- Boton para submitear el formulario -->
     <button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Login</button>
 </form>
 
+<!-- Boton para cerrar sesion -->
 <div class="form-inline" *ngIf="sessionStatus">
   <button class="btn btn-danger" (click)="doLogout()">{{ username }}</button>
 </div>

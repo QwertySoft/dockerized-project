@@ -29,6 +29,8 @@ export class PodcastDetailComponent implements OnInit {
 
   ngOnInit() {
     this.sessionStatus = this.auth.isAuthenticated();
+
+    // Escuchamos cambios del estado de la sesion
     this.observeSessionStatusChanges();
 
     this.route.params

@@ -15,11 +15,12 @@ export class PodcastCardComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private podcasts: PodcastsService
+    private podcastsService: PodcastsService
   ) { }
 
   ngOnInit() {
     this.sessionStatus = this.auth.isAuthenticated();
+    // Escuchamos cambios del estado de la sesion
     this.observeSessionStatusChanges();
   }
 
@@ -29,7 +30,7 @@ export class PodcastCardComponent implements OnInit {
 
   public doLike() {
     this.like();
-    this.podcasts.like(this.podcast).subscribe(
+    this.podcastsService.like(this.podcast).subscribe(
       () => {},
       () => {
         this.unlike();
@@ -39,7 +40,7 @@ export class PodcastCardComponent implements OnInit {
 
   public doUnlike() {
     this.unlike();
-    this.podcasts.unlike(this.podcast).subscribe(
+    this.podcastsService.unlike(this.podcast).subscribe(
       () => {},
       () => {
         this.like();

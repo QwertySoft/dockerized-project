@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -9,14 +9,14 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginFormComponent implements OnInit {
 
-  // Instanciamos el usuario para iniciar sesion
   public user = new User();
   public sessionStatus: boolean;
   public username: string;
 
   constructor(
     private auth: AuthService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.sessionStatus = this.auth.isAuthenticated();
@@ -31,10 +31,14 @@ export class LoginFormComponent implements OnInit {
         localStorage.setItem('token', token.key);
         localStorage.setItem('username', this.user.username);
         this.username = this.user.username;
-        // Notifica a todos los observadores que la sesion fue iniciada
-        this.auth.changeSesionStatus(true);
+
+        this.auth.changeSesionStatus(true); // Notifica a todos los observadores que la sesion fue iniciada
         this.sessionStatus = true;
+
         this.getMe();
+      },
+      () => {
+        alert('Bad credentials');
       }
     );
   }

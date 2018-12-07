@@ -1,3 +1,4 @@
+<!-- Breadcrumb de navegacion -->
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a [routerLink]="['/podcasts']">Podcasts</a></li>
@@ -6,6 +7,8 @@
 </nav>
 
 <app-spinner *ngIf="loading"></app-spinner>
+
+<!-- Card con el contenido en detalle de un podcast -->
 <div class="card mb-3" *ngIf="!loading">
   <img class="card-img-top" [src]="podcast.cover" [alt]="podcast.title">
   <div class="card-img-overlay">
@@ -21,7 +24,7 @@
     <p class="card-text"><span class="author">{{ podcast.author }}</span> in {{ podcast.album }} album</p>
     <small class="text-muted">{{ podcast.created | amTimeAgo }}</small>
 
-    <div class="accordion" id="accordionExample">
+    <div class="accordion" id="accordionExample" *ngIf="podcast.description">
         <div class="card">
           <div class="card-header" id="headingOne">
             <h5 class="mb-0">
@@ -47,6 +50,7 @@
   </div>
 </div>
 
+<!-- Lista de comentarios -->
 <h3>Comments</h3>
 <app-spinner [text]="'Loading comments'" *ngIf="loadingComments"></app-spinner>
 <div *ngFor="let comment of comments" class="card col-12">
@@ -57,6 +61,7 @@
   </div>
 </div>
 
+<!-- Separador -->
 <hr>
 
 <app-comment-form [podcast]="podcast" (addComment)="addComment($event)"></app-comment-form>

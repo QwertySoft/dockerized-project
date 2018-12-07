@@ -1,13 +1,12 @@
+<!-- Formulario para agregar un comentario -->
 <div *ngIf="sessionStatus">
   <h4>Add comment</h4>
   <form class="form-inline" (ngSubmit)="add()" #form="ngForm">
-      <!-- Definimos el input para el comment -->
       <textarea type="text" placeholder="Comment" class="form-control" id="comment" required [(ngModel)]="comment.text" name="text" #text="ngModel"></textarea>
 
-      <!-- Definimos boton para submitear el formulario -->
       <button type="submit" class="btn btn-success" [disabled]="!form.form.valid || block">
         Add
-        <app-spinner *ngIf="addingComment"></app-spinner>
       </button>
+      <app-spinner *ngIf="addingComment"></app-spinner>
   </form>
 </div>

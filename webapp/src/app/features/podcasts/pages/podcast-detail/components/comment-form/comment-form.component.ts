@@ -21,8 +21,9 @@ export class CommentFormComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private comments: CommentsService
+    private commentsService: CommentsService
   ) {
+    // Escuchamos cambios del estado de la sesion
     this.observeSessionStatusChanges();
   }
 
@@ -36,7 +37,7 @@ export class CommentFormComponent implements OnInit {
     this.addingComment = true;
     this.comment.user = user.id;
     this.comment.podcast = this.podcast.id;
-    this.comments.create(this.comment).subscribe(
+    this.commentsService.create(this.comment).subscribe(
       (comment: Comment) => {
         this.addComment.emit(comment);
         this.comment = new Comment();
