@@ -37,11 +37,13 @@ class PodcastViewSet(viewsets.ReadOnlyModelViewSet):
 
         like = None
         try:
+            # Intentamos recuperar el like del usuario en sesion para el podcast en cuestion
             like = Like.objects.get(user=request.user.id, podcast=pk)
         except ObjectDoesNotExist:
             pass
 
         if request.method == 'POST':
+            # Si intentamos crear mas de un like retornamos un 400
             if like is not None:
                 return Response("Bad request", status=400)
 
@@ -49,12 +51,14 @@ class PodcastViewSet(viewsets.ReadOnlyModelViewSet):
             podcast.likes_amount += 1
             podcast.save()
 
+            # Agregamos un like del usuario al podcast
             like = Like(user=request.user, podcast=podcast)
             like.save()
             likeSerializer = LikeSerializer(like)
 
             return Response(likeSerializer.data, status=201)
         else:
+            # Si intentamos eliminar un like que no existe retornamos un 400
             if like is None:
                 return Response("Bad request", status=400)
 
@@ -62,6 +66,7 @@ class PodcastViewSet(viewsets.ReadOnlyModelViewSet):
             podcast.likes_amount -= 1
             podcast.save()
             
+            # Eliminamos el like
             like.delete()
 
             return Response({}, status=200)
