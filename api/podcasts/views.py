@@ -73,7 +73,9 @@ class PodcastViewSet(viewsets.ReadOnlyModelViewSet):
 
 # ViewSet for Comments
 class CommentViewSet(viewsets.ModelViewSet):
+    # Definimos las clases de autenticacion que queremos usar para este ModelViewSet
     authentication_classes = [authentication.TokenAuthentication]
+    # Definimos los permisos que tiene que tener el usuario para operar sobre los comentarios. Caso contrario, solo podra verlos pero no crear o editar
     permission_classes = [IAmMe, permissions.IsAuthenticatedOrReadOnly]
     # QuerySet para listar todos los snippets habilitados
     queryset = Comment.objects.all()

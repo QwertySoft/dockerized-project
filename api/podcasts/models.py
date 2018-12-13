@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from users.models import User
+from .fields import ContentTypeRestrictedFileField
 
 class Podcast(models.Model):
     # Campo para registrar la fecha de creacion
@@ -17,6 +18,7 @@ class Podcast(models.Model):
     cover = models.FileField(blank=True, null=True, upload_to='covers/')
     # Upload de la cancion bajo /medias/songs/
     song = models.FileField(blank=False, null=False, upload_to='songs/')
+    # song = ContentTypeRestrictedFileField(blank=False, null=False, content_types=['audio/mpeg', 'audio/mpeg3'], max_upload_size=5242880, upload_to='songs/')
     # Contador de likes
     likes_amount = models.IntegerField(blank=True, null=True, default=0)
     year = models.IntegerField(blank=False, null=False, default=2018)
